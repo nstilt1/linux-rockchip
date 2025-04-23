@@ -1155,18 +1155,18 @@
 
 	hdmirx {
 		hdmirx_m2_pins: hdmirx-m2-pins {
-			rockchip,pins = <
-				1 RK_PD6 RK_FUNC_2 &pcfg_pull_up
-				1 RK_PD7 RK_FUNC_2 &pcfg_pull_up
-				1 RK_PB7 RK_FUNC_2 &pcfg_pull_none
-				1 RK_PB6 RK_FUNC_2 &pcfg_pull_none
-			>;
+			rockchip,pins =
+				<1 RK_PD6 RK_FUNC_2 &pcfg_pull_up>,
+				<1 RK_PD7 RK_FUNC_2 &pcfg_pull_up>,
+				<1 RK_PB7 RK_FUNC_2 &pcfg_pull_none>,
+				<1 RK_PB6 RK_FUNC_2 &pcfg_pull_none>;
 		};
 
+		/* Group for the GPIO-based Detection Pin - Confirmed GPIO3_D3 */
 		hdmirx_det_pin: hdmirx-det-pin {
-			rockchip,pins = <
-				3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up
-			>;
+			rockchip,pins =
+				/* HDMI RX Detect (Active Low) - Use pull-up for defined state when floating */
+				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>; /* GPIO3_D3 -> HDMI_RX_DET_L */
 		};
 	};
 
