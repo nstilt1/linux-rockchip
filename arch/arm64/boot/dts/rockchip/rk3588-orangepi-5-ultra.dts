@@ -138,7 +138,7 @@
         #size-cells = <2>;
         ranges;
 
-        hdmi_receiver_cma: cma@0 { // Label used by &hdmirx_ctrler
+        hdmi_receiver_cma: cma@0 { /* Label used by &hdmirx_ctrler */
             compatible = "shared-dma-pool";
             reusable;
             /* Example: 256MB. Adjust size as needed. */
@@ -1154,69 +1154,65 @@
 	};
 
 	hdmirx {
-		// Group for pins using specific Mux Function 2 for HDMI RX
 		hdmirx_m2_pins: hdmirx-m2-pins {
-			rockchip,pins =
-				// HDMI RX DDC (I2C8 Mux 2) - Confirmed GPIO1_D6/D7
-				<1 RK_PD6 RK_FUNC_2 &pcfg_pull_up>,   // GPIO1_D6 -> HDMI_RX_SCL_M2 / I2C8_SCL_M2
-				<1 RK_PD7 RK_FUNC_2 &pcfg_pull_up>,   // GPIO1_D7 -> HDMI_RX_SDA_M2 / I2C8_SDA_M2
-				// HDMI RX CEC (Mux 2) - Confirmed GPIO1_B7
-				<1 RK_PB7 RK_FUNC_2 &pcfg_pull_none>, // GPIO1_B7 -> HDMI_RX_CEC_M2
-				// HDMI RX HPD Output (Mux 2) - Confirmed GPIO1_B6
-				<1 RK_PB6 RK_FUNC_2 &pcfg_pull_none>; // GPIO1_B6 -> HDMII_RX_HPDOUT_M2
+			rockchip,pins = <
+				1 RK_PD6 RK_FUNC_2 &pcfg_pull_up
+				1 RK_PD7 RK_FUNC_2 &pcfg_pull_up
+				1 RK_PB7 RK_FUNC_2 &pcfg_pull_none
+				1 RK_PB6 RK_FUNC_2 &pcfg_pull_none
+			>;
 		};
 
-		// Group for the GPIO-based Detection Pin - Confirmed GPIO3_D3
 		hdmirx_det_pin: hdmirx-det-pin {
-			rockchip,pins =
-				// HDMI RX Detect (Active Low) - Use pull-up for defined state when floating
-				<3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>; // GPIO3_D3 -> HDMI_RX_DET_L
+			rockchip,pins = <
+				3 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up
+			>;
 		};
 	};
 
 	sdmmc {
-		// Define SD Card slot pins - Confirmed GPIO4_D0-D5
-		// Use standard SDMMC function names (check RK3588 TRM/dtsi if unsure, these are common)
+		/* Define SD Card slot pins - Confirmed GPIO4_D0-D5 */
+		/* Use standard SDMMC function names (check RK3588 TRM/dtsi if unsure, these are common) */
 		sdmmc0_pins: sdmmc0-pins {
 			rockchip,pins =
-				<4 RK_PD5 RK_FUNC_1 &pcfg_pull_up>,    // SDMMC0_CLK / GPIO4_D5
-				<4 RK_PD4 RK_FUNC_1 &pcfg_pull_up>,    // SDMMC0_CMD / GPIO4_D4
-				<4 RK_PD0 RK_FUNC_1 &pcfg_pull_up>,    // SDMMC0_D0 / GPIO4_D0
-				<4 RK_PD1 RK_FUNC_1 &pcfg_pull_up>,    // SDMMC0_D1 / GPIO4_D1
-				<4 RK_PD2 RK_FUNC_1 &pcfg_pull_up>,    // SDMMC0_D2 / GPIO4_D2
-				<4 RK_PD3 RK_FUNC_1 &pcfg_pull_up>;   // SDMMC0_D3 / GPIO4_D3
+				<4 RK_PD5 RK_FUNC_1 &pcfg_pull_up>,    /* SDMMC0_CLK / GPIO4_D5 */
+				<4 RK_PD4 RK_FUNC_1 &pcfg_pull_up>,    /* SDMMC0_CMD / GPIO4_D4 */
+				<4 RK_PD0 RK_FUNC_1 &pcfg_pull_up>,    /* SDMMC0_D0 / GPIO4_D0 */
+				<4 RK_PD1 RK_FUNC_1 &pcfg_pull_up>,    /* SDMMC0_D1 / GPIO4_D1 */
+				<4 RK_PD2 RK_FUNC_1 &pcfg_pull_up>,    /* SDMMC0_D2 / GPIO4_D2 */
+				<4 RK_PD3 RK_FUNC_1 &pcfg_pull_up>;   /* SDMMC0_D3 / GPIO4_D3 */
 		};
 
-		// Define SD Card Detect pin - Confirmed GPIO0_A3
+		/* Define SD Card Detect pin - Confirmed GPIO0_A3 */
 		sdmmc0_det_pin: sdmmc0-det-pin {
 			rockchip,pins =
-				<0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>; // GPIO0_A3 -> SDMMC_DET_L (Active Low)
+				<0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>; /* GPIO0_A3 -> SDMMC_DET_L (Active Low) */
 		};
 	};
 
-	sdhci { // Typically used for eMMC
-		// Define eMMC pins - Confirmed GPIO2_D0-D7, GPIO2_A0-A3
-		// Use standard SDHCI function names (check RK3588 TRM/dtsi)
+	sdhci { /* Typically used for eMMC */
+		/* Define eMMC pins - Confirmed GPIO2_D0-D7, GPIO2_A0-A3 */
+		/* Use standard SDHCI function names (check RK3588 TRM/dtsi) */
 		emmc_pins: emmc-pins {
 			rockchip,pins =
-				<2 RK_PA1 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_CLK / EMMC_CLKOUT / GPIO2_A1
-				<2 RK_PA0 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_CMD / EMMC_CMD / GPIO2_A0
-				<2 RK_PD0 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D0 / EMMC_D0 / GPIO2_D0
-				<2 RK_PD1 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D1 / EMMC_D1 / GPIO2_D1
-				<2 RK_PD2 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D2 / EMMC_D2 / GPIO2_D2
-				<2 RK_PD3 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D3 / EMMC_D3 / GPIO2_D3
-				<2 RK_PD4 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D4 / EMMC_D4 / GPIO2_D4
-				<2 RK_PD5 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D5 / EMMC_D5 / GPIO2_D5
-				<2 RK_PD6 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D6 / EMMC_D6 / GPIO2_D6
-				<2 RK_PD7 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_D7 / EMMC_D7 / GPIO2_D7
-				<2 RK_PA2 RK_FUNC_1 &pcfg_pull_none>,  // SDHCI_STROBE / EMMC_DATA_STROBE / GPIO2_A2
-				<2 RK_PA3 RK_FUNC_1 &pcfg_pull_none>;  // SDHCI_RSTN / EMMC_RSTn / GPIO2_A3
+				<2 RK_PA1 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_CLK / EMMC_CLKOUT / GPIO2_A1 */
+				<2 RK_PA0 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_CMD / EMMC_CMD / GPIO2_A0 */
+				<2 RK_PD0 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D0 / EMMC_D0 / GPIO2_D0 */
+				<2 RK_PD1 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D1 / EMMC_D1 / GPIO2_D1 */
+				<2 RK_PD2 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D2 / EMMC_D2 / GPIO2_D2 */
+				<2 RK_PD3 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D3 / EMMC_D3 / GPIO2_D3 */
+				<2 RK_PD4 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D4 / EMMC_D4 / GPIO2_D4 */
+				<2 RK_PD5 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D5 / EMMC_D5 / GPIO2_D5 */
+				<2 RK_PD6 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D6 / EMMC_D6 / GPIO2_D6 */
+				<2 RK_PD7 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_D7 / EMMC_D7 / GPIO2_D7 */
+				<2 RK_PA2 RK_FUNC_1 &pcfg_pull_none>,  /* SDHCI_STROBE / EMMC_DATA_STROBE / GPIO2_A2 */
+				<2 RK_PA3 RK_FUNC_1 &pcfg_pull_none>;  /* SDHCI_RSTN / EMMC_RSTn / GPIO2_A3 */
 		};
 	};
 };
 
 &hdmirx_ctrler {
-	status = "okay"; // Enable the controller
+	status = "okay"; /* Enable the controller */
 	#sound-dai-cells = <1>;
 
 	/* Cable Detection GPIO (Confirmed: GPIO3_D3, Active Low) */
